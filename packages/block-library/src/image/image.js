@@ -29,6 +29,7 @@ import {
 	BlockAlignmentControl,
 	__experimentalImageEditor as ImageEditor,
 	__experimentalImageEditingProvider as ImageEditingProvider,
+	__experimentalUseBorderProps as useBorderProps,
 } from '@wordpress/block-editor';
 import { useEffect, useMemo, useState, useRef } from '@wordpress/element';
 import { __, sprintf, isRTL } from '@wordpress/i18n';
@@ -52,7 +53,21 @@ import { MIN_SIZE, ALLOWED_MEDIA_TYPES } from './constants';
 
 export default function Image( {
 	temporaryURL,
-	attributes: {
+	attributes,
+	setAttributes,
+	isSelected,
+	insertBlocksAfter,
+	onReplace,
+	onCloseModal,
+	onSelectImage,
+	onSelectURL,
+	onUploadError,
+	containerRef,
+	context,
+	clientId,
+	onImageLoadError,
+} ) {
+	const {
 		url = '',
 		alt,
 		caption,
@@ -67,20 +82,7 @@ export default function Image( {
 		height,
 		linkTarget,
 		sizeSlug,
-	},
-	setAttributes,
-	isSelected,
-	insertBlocksAfter,
-	onReplace,
-	onCloseModal,
-	onSelectImage,
-	onSelectURL,
-	onUploadError,
-	containerRef,
-	context,
-	clientId,
-	onImageLoadError,
-} ) {
+	} = attributes;
 	const imageRef = useRef();
 	const captionRef = useRef();
 	const prevUrl = usePrevious( url );
@@ -440,6 +442,8 @@ export default function Image( {
 		defaultedAlt = __( 'This image has an empty alt attribute' );
 	}
 
+	const borderProps = useBorderProps( attributes );
+
 	let img = (
 		// Disable reason: Image itself is not meant to be interactive, but
 		// should direct focus to block.
@@ -456,6 +460,8 @@ export default function Image( {
 					} );
 				} }
 				ref={ imageRef }
+				className={ borderProps.className }
+				style={ borderProps.style }
 			/>
 			{ temporaryURL && <Spinner /> }
 		</>
@@ -477,6 +483,7 @@ export default function Image( {
 	if ( canEditImage && isEditingImage ) {
 		img = (
 			<ImageEditor
+				borderProps={ borderProps }
 				url={ url }
 				width={ width }
 				height={ height }
