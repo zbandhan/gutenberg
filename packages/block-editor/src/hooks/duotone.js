@@ -13,6 +13,7 @@ import { SVG } from '@wordpress/components';
 import { createHigherOrderComponent, useInstanceId } from '@wordpress/compose';
 import { addFilter } from '@wordpress/hooks';
 import { useMemo, useContext, createPortal } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -60,81 +61,99 @@ export function getValuesFromColors( colors = [] ) {
  */
 
 /**
+ * The SVG part of the duotone filter.
+ *
+ * @param {Object}   props        Duotone props.
+ * @param {string}   props.id     Unique id for this duotone filter.
+ * @param {string[]} props.colors Color strings from dark to light.
+ *
+ * @returns {WPElement} Duotone SVG.
+ */
+function DuotoneFilterSvg( { id, colors } ) {
+	const values = getValuesFromColors( colors );
+	return (
+		<SVG
+			xmlnsXlink="http://www.w3.org/1999/xlink"
+			viewBox="0 0 0 0"
+			width="0"
+			height="0"
+			focusable="false"
+			role="none"
+			style={ {
+				visibility: 'hidden',
+				position: 'absolute',
+				left: '-9999px',
+				overflow: 'hidden',
+			} }
+		>
+			<defs>
+				<filter id={ id }>
+					<feColorMatrix
+						// Use sRGB instead of linearRGB so transparency looks correct.
+						colorInterpolationFilters="sRGB"
+						type="matrix"
+						// Use perceptual brightness to convert to grayscale.
+						values="
+							.299 .587 .114 0 0
+							.299 .587 .114 0 0
+							.299 .587 .114 0 0
+							.299 .587 .114 0 0
+						"
+					/>
+					<feComponentTransfer
+						// Use sRGB instead of linearRGB to be consistent with how CSS gradients work.
+						colorInterpolationFilters="sRGB"
+					>
+						<feFuncR
+							type="table"
+							tableValues={ values.r.join( ' ' ) }
+						/>
+						<feFuncG
+							type="table"
+							tableValues={ values.g.join( ' ' ) }
+						/>
+						<feFuncB
+							type="table"
+							tableValues={ values.b.join( ' ' ) }
+						/>
+						<feFuncA
+							type="table"
+							tableValues={ values.a.join( ' ' ) }
+						/>
+					</feComponentTransfer>
+					<feComposite
+						// Re-mask the image with the original transparency since the feColorMatrix above loses that information.
+						in2="SourceGraphic"
+						operator="in"
+					/>
+				</filter>
+			</defs>
+		</SVG>
+	);
+}
+
+/**
  * SVG and stylesheet needed for rendering the duotone filter.
  *
- * @param {Object} props          Duotone props.
- * @param {string} props.selector Selector to apply the filter to.
- * @param {string} props.id       Unique id for this duotone filter.
- * @param {Values} props.values   R, G, B, and A values to filter with.
+ * @param {Object}   props          Duotone props.
+ * @param {string}   props.selector Selector to apply the filter to.
+ * @param {string}   props.id       Unique id for this duotone filter.
+ * @param {string[]} props.colors   Color strings from dark to light.
  *
  * @return {WPElement} Duotone element.
  */
-function DuotoneFilter( { selector, id, values } ) {
+function DuotoneFilter( { selector, id, colors } ) {
 	const stylesheet = `
 ${ selector } {
-	filter: url( #${ id } );
+	filter: ${ colors.length > 0 ? `url( #${ id } )` : 'none' };
 }
 `;
 
 	return (
 		<>
-			<SVG
-				xmlnsXlink="http://www.w3.org/1999/xlink"
-				viewBox="0 0 0 0"
-				width="0"
-				height="0"
-				focusable="false"
-				role="none"
-				style={ {
-					visibility: 'hidden',
-					position: 'absolute',
-					left: '-9999px',
-					overflow: 'hidden',
-				} }
-			>
-				<defs>
-					<filter id={ id }>
-						<feColorMatrix
-							// Use sRGB instead of linearRGB so transparency looks correct.
-							colorInterpolationFilters="sRGB"
-							type="matrix"
-							// Use perceptual brightness to convert to grayscale.
-							values="
-								.299 .587 .114 0 0
-								.299 .587 .114 0 0
-								.299 .587 .114 0 0
-								.299 .587 .114 0 0
-							"
-						/>
-						<feComponentTransfer
-							// Use sRGB instead of linearRGB to be consistent with how CSS gradients work.
-							colorInterpolationFilters="sRGB"
-						>
-							<feFuncR
-								type="table"
-								tableValues={ values.r.join( ' ' ) }
-							/>
-							<feFuncG
-								type="table"
-								tableValues={ values.g.join( ' ' ) }
-							/>
-							<feFuncB
-								type="table"
-								tableValues={ values.b.join( ' ' ) }
-							/>
-							<feFuncA
-								type="table"
-								tableValues={ values.a.join( ' ' ) }
-							/>
-						</feComponentTransfer>
-						<feComposite
-							// Re-mask the image with the original transparency since the feColorMatrix above loses that information.
-							in2="SourceGraphic"
-							operator="in"
-						/>
-					</filter>
-				</defs>
-			</SVG>
+			{ colors.length > 0 && (
+				<DuotoneFilterSvg id={ id } colors={ colors } />
+			) }
 			<style dangerouslySetInnerHTML={ { __html: stylesheet } } />
 		</>
 	);
@@ -148,11 +167,17 @@ function useMultiOriginPresets( { presetSetting, defaultSetting } ) {
 		useSetting( `${ presetSetting }.theme` ) || EMPTY_ARRAY;
 	const defaultPresets =
 		useSetting( `${ presetSetting }.default` ) || EMPTY_ARRAY;
+	const unsetPreset = {
+		colors: EMPTY_ARRAY,
+		slug: 'unset',
+		name: __( 'Unset' ),
+	};
 	return useMemo(
 		() => [
 			...userPresets,
 			...themePresets,
 			...( disableDefault ? EMPTY_ARRAY : defaultPresets ),
+			unsetPreset,
 		],
 		[ disableDefault, userPresets, themePresets, defaultPresets ]
 	);
@@ -297,9 +322,9 @@ const withDuotoneStyles = createHigherOrderComponent(
 			props.name,
 			'color.__experimentalDuotone'
 		);
-		const values = props?.attributes?.style?.color?.duotone;
+		const colors = props?.attributes?.style?.color?.duotone;
 
-		if ( ! duotoneSupport || ! values ) {
+		if ( ! duotoneSupport || ! colors ) {
 			return <BlockListBlock { ...props } />;
 		}
 
@@ -324,7 +349,7 @@ const withDuotoneStyles = createHigherOrderComponent(
 						<DuotoneFilter
 							selector={ selectorsGroup }
 							id={ id }
-							values={ getValuesFromColors( values ) }
+							colors={ colors }
 						/>,
 						element
 					) }
