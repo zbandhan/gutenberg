@@ -176,6 +176,7 @@ class WP_Theme_JSON_Gutenberg extends WP_Theme_JSON_5_9 {
 		'layout'          => array(
 			'contentSize' => null,
 			'wideSize'    => null,
+			'padding'     => null,
 		),
 		'spacing'         => array(
 			'blockGap' => null,
