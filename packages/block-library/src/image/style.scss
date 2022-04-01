@@ -99,6 +99,12 @@
 			border-radius: 0;
 		}
 	}
+
+	&.has-custom-border {
+		img {
+			box-sizing: border-box;
+		}
+	}
 }
 
 .wp-block-image figure {
