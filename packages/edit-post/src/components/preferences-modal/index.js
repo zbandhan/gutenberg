@@ -104,9 +104,9 @@ export default function EditPostPreferencesModal() {
 							<EnableFeature
 								featureName="reducedUI"
 								help={ __(
-									'Compacts options and outlines in the toolbar.'
+									'Reduce visual distractions by hiding the toolbar and other elements to focus on writing.'
 								) }
-								label={ __( 'Reduce the interface' ) }
+								label={ __( 'Distraction Free' ) }
 							/>
 							<EnableFeature
 								featureName="focusMode"
