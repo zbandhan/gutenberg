@@ -10,4 +10,7 @@ export async function clickBlockAppender() {
 		'.block-editor-default-block-appender__content'
 	);
 	await appender.click();
+
+	// this was necessary after React 18 (probably due to the auto-batching)
+	await page.evaluate( () => new Promise( window.requestAnimationFrame ) );
 }
