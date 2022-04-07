@@ -206,6 +206,7 @@ function Layout( { styles } ) {
 			<InterfaceSkeleton
 				className={ className }
 				labels={ interfaceLabels }
+				isDistractionFree={ hasReducedUI }
 				header={
 					<Header
 						setEntitiesSavedStatesCallback={
