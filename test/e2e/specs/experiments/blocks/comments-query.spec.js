@@ -1,22 +1,26 @@
 /**
  * WordPress dependencies
  */
+const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
 import {
-	activateTheme,
 	createNewPost,
 	insertBlock,
 	pressKeyTimes,
 	publishPost,
 	setOption,
-	trashAllComments,
 } from '@wordpress/e2e-test-utils';
 
-describe( 'Comment Query Loop', () => {
+/**
+ * @typedef {import('@playwright/test').Page} Page
+ * @typedef {import('@wordpress/e2e-test-utils-playwright').RequestUtils} RequestUtils
+ */
+
+test.describe( 'Comment Query Loop', () => {
 	let previousPageComments,
 		previousCommentsPerPage,
 		previousDefaultCommentsPage;
-	beforeAll( async () => {
-		await activateTheme( 'emptytheme' );
+	test.beforeAll( async ( { requestUtils } ) => {
+		await requestUtils.activateTheme( 'emptytheme' );
 		previousPageComments = await setOption( 'page_comments', '1' );
 		previousCommentsPerPage = await setOption( 'comments_per_page', '1' );
 		previousDefaultCommentsPage = await setOption(
@@ -24,7 +28,7 @@ describe( 'Comment Query Loop', () => {
 			'newest'
 		);
 	} );
-	it( 'Pagination links are working as expected', async () => {
+	test( 'Pagination links are working as expected', async ( { page } ) => {
 		await createNewPost();
 		// Insert the Query Comment Loop block.
 		await insertBlock( 'Comments Query Loop' );
@@ -86,7 +90,9 @@ describe( 'Comment Query Loop', () => {
 			await page.$( '.wp-block-comments-pagination-next' )
 		).not.toBeNull();
 	} );
-	it( 'Pagination links are not appearing if break comments is not enabled', async () => {
+	test( 'Pagination links are not appearing if break comments is not enabled', async ( {
+		page,
+	} ) => {
 		await setOption( 'page_comments', '0' );
 		await createNewPost();
 		// Insert the Query Comment Loop block.
@@ -121,9 +127,9 @@ describe( 'Comment Query Loop', () => {
 			await page.$( '.wp-block-comments-pagination-next' )
 		).toBeNull();
 	} );
-	afterAll( async () => {
-		await trashAllComments();
-		await activateTheme( 'twentytwentyone' );
+	test.afterAll( async ( { requestUtils } ) => {
+		await requestUtils.deleteAllComments();
+		await requestUtils.activateTheme( 'twentytwentyone' );
 		await setOption( 'page_comments', previousPageComments );
 		await setOption( 'comments_per_page', previousCommentsPerPage );
 		await setOption( 'default_comments_page', previousDefaultCommentsPage );

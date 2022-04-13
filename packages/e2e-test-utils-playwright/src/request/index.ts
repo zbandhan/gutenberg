@@ -17,6 +17,7 @@ import { getPluginsMap, activatePlugin, deactivatePlugin } from './plugins';
 import { deleteAllTemplates } from './templates';
 import { activateTheme } from './themes';
 import { deleteAllBlocks } from './blocks';
+import { deleteAllComments } from './comments';
 import { deleteAllPosts } from './posts';
 import { deleteAllWidgets, addWidgetBlock } from './widgets';
 
@@ -117,6 +118,7 @@ class RequestUtils {
 	activateTheme = activateTheme;
 	deleteAllBlocks = deleteAllBlocks;
 	deleteAllPosts = deleteAllPosts;
+	deleteAllComments = deleteAllComments;
 	deleteAllWidgets = deleteAllWidgets;
 	addWidgetBlock = addWidgetBlock;
 	deleteAllTemplates = deleteAllTemplates;
