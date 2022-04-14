@@ -946,6 +946,10 @@ class WP_Theme_JSON_5_9 {
 								'name'  => '--wp--user--preset--' . $property,
 								'value' => 'var(' . $css_var . ')',
 							),
+							array(
+								'name'  => $property,
+								'value' => 'var(' . $css_var . ')',
+							),
 						)
 					);
 				}
