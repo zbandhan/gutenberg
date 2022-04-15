@@ -52,6 +52,7 @@ function Flyout( props, forwardedRef ) {
 	);
 
 	const triggerContent = useCallback(
+		// @ts-ignore
 		( triggerProps ) => {
 			return cloneElement( trigger, triggerProps );
 		},

@@ -52,6 +52,7 @@ function useDialog( options ) {
 			currentOptions.current.onClose();
 		}
 	} );
+	// @ts-ignore
 	const closeOnEscapeRef = useCallback( ( node ) => {
 		if ( ! node ) {
 			return;
