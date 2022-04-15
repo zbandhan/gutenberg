@@ -21,6 +21,7 @@
 		"align": [ "wide", "full" ],
 		"anchor": true,
 		"html": false,
+		"__experimentalSection": true,
 		"color": {
 			"gradients": true,
 			"link": true,

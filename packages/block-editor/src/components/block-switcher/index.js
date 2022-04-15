@@ -18,6 +18,7 @@ import {
 	store as blocksStore,
 	isReusableBlock,
 	isTemplatePart,
+	hasBlockSupport,
 } from '@wordpress/blocks';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { copy } from '@wordpress/icons';
@@ -43,18 +44,19 @@ export const BlockSwitcherDropdownMenu = ( { clientIds, blocks } ) => {
 		icon,
 		blockTitle,
 		patterns,
+		isSection,
 	} = useSelect(
 		( select ) => {
 			const {
 				getBlockRootClientId,
 				getBlockTransformItems,
 				__experimentalGetPatternTransformItems,
+				getBlockAttributes,
 			} = select( blockEditorStore );
 			const { getBlockStyles, getBlockType } = select( blocksStore );
 			const { canRemoveBlocks } = select( blockEditorStore );
-			const rootClientId = getBlockRootClientId(
-				castArray( clientIds )[ 0 ]
-			);
+			const clientId = castArray( clientIds )[ 0 ];
+			const rootClientId = getBlockRootClientId( clientId );
 			const [ { name: firstBlockName } ] = blocks;
 			const _isSingleBlockSelected = blocks.length === 1;
 			const styles =
@@ -84,6 +86,12 @@ export const BlockSwitcherDropdownMenu = ( { clientIds, blocks } ) => {
 					blocks,
 					rootClientId
 				),
+				isSection:
+					hasBlockSupport(
+						firstBlockName,
+						'__experimentalSection',
+						false
+					) && getBlockAttributes( clientId ).isSection,
 			};
 		},
 		[ clientIds, blocks, blockInformation?.icon ]
@@ -111,7 +119,7 @@ export const BlockSwitcherDropdownMenu = ( { clientIds, blocks } ) => {
 					icon={
 						<>
 							<BlockIcon icon={ icon } showColors />
-							{ ( isReusable || isTemplate ) && (
+							{ ( isSection || isReusable || isTemplate ) && (
 								<span className="block-editor-block-switcher__toggle-text">
 									<BlockTitle
 										clientId={ clientIds }
@@ -168,7 +176,7 @@ export const BlockSwitcherDropdownMenu = ( { clientIds, blocks } ) => {
 									className="block-editor-block-switcher__toggle"
 									showColors
 								/>
-								{ ( isReusable || isTemplate ) && (
+								{ ( isReusable || isTemplate || isSection ) && (
 									<span className="block-editor-block-switcher__toggle-text">
 										<BlockTitle
 											clientId={ clientIds }
