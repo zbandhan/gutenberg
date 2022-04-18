@@ -71,6 +71,7 @@ export function useBlockProps( props = {}, { __unstableIsHtml } = {} ) {
 		adjustScrolling,
 		enableAnimation,
 		isExplodedMode,
+		isRootBlock,
 	} = useSelect(
 		( select ) => {
 			const {
@@ -84,6 +85,7 @@ export function useBlockProps( props = {}, { __unstableIsHtml } = {} ) {
 				isAncestorMultiSelected,
 				isFirstMultiSelectedBlock,
 				__unstableGetEditorMode,
+				getBlockRootClientId,
 			} = select( blockEditorStore );
 			const isSelected = isBlockSelected( clientId );
 			const isPartOfMultiSelection =
@@ -105,6 +107,7 @@ export function useBlockProps( props = {}, { __unstableIsHtml } = {} ) {
 					! isTyping() &&
 					getGlobalBlockCount() <= BLOCK_ANIMATION_THRESHOLD,
 				isExplodedMode: __unstableGetEditorMode() === 'exploded',
+				isRootBlock: ! getBlockRootClientId( clientId ),
 			};
 		},
 		[ clientId ]
@@ -127,7 +130,7 @@ export function useBlockProps( props = {}, { __unstableIsHtml } = {} ) {
 			adjustScrolling,
 			enableAnimation,
 			triggerAnimationOnChange: index,
-			scale: isExplodedMode ? 0.8 : 1,
+			scale: isExplodedMode && isRootBlock ? 0.8 : 1,
 		} ),
 	] );
 
