@@ -7,7 +7,13 @@ import classnames from 'classnames';
  * WordPress dependencies
  */
 import { useSelect } from '@wordpress/data';
-import { useCallback, useMemo, createContext } from '@wordpress/element';
+import {
+	useCallback,
+	useMemo,
+	createContext,
+	useState,
+	useEffect,
+} from '@wordpress/element';
 import { Popover } from '@wordpress/components';
 import { isRTL } from '@wordpress/i18n';
 
@@ -28,6 +34,13 @@ function BlockPopoverInbetween( {
 	__unstableContentRef,
 	...props
 } ) {
+	// This is a temporary hack to get the inbetween inserter to recompute properly.
+	const [ positionRecompute, forceRecompute ] = useState( {} );
+	useEffect( () => {
+		const intervalHandle = setInterval( forceRecompute, 500 );
+		return () => clearInterval( intervalHandle );
+	}, [] );
+
 	const { orientation, rootClientId } = useSelect(
 		( select ) => {
 			const { getBlockListSettings, getBlockRootClientId } = select(
@@ -84,7 +97,7 @@ function BlockPopoverInbetween( {
 				? previousElement.offsetHeight
 				: nextElement.offsetHeight,
 		};
-	}, [ previousElement, nextElement, isVertical ] );
+	}, [ previousElement, nextElement, isVertical, positionRecompute ] );
 
 	const getAnchorRect = useCallback( () => {
 		if ( ! previousElement && ! nextElement ) {
@@ -137,7 +150,7 @@ function BlockPopoverInbetween( {
 			bottom: previousRect ? previousRect.bottom : nextRect.bottom,
 			ownerDocument,
 		};
-	}, [ previousElement, nextElement ] );
+	}, [ previousElement, nextElement, positionRecompute ] );
 
 	const popoverScrollRef = usePopoverScroll( __unstableContentRef );
 
