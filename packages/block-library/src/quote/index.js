@@ -15,7 +15,7 @@ import transforms from './transforms';
 
 const { name } = metadata;
 
-export { metadata, name, settingsV2 };
+export { metadata, name };
 
 export const settings = {
 	icon,
@@ -37,11 +37,3 @@ export const settings = {
 	save,
 	deprecated,
 };
-
-let settings = settingsV1;
-if ( process.env.IS_GUTENBERG_PLUGIN ) {
-	settings = window?.__experimentalEnableQuoteBlockV2
-		? settingsV2
-		: settingsV1;
-}
-export { settings };
