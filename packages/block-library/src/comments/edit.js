@@ -67,7 +67,7 @@ const TEMPLATE = [
 	[ 'core/comments-pagination' ],
 ];
 
-export default function CommentsQueryLoopEdit( { attributes, setAttributes } ) {
+export default function CommentsEdit( { attributes, setAttributes } ) {
 	const { tagName: TagName } = attributes;
 
 	const blockProps = useBlockProps();
