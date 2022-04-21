@@ -74,9 +74,7 @@ export default function useBlockDisplayTitle( clientId, maximumLength ) {
 
 	const sectionTitle =
 		hasBlockSupport( name, '__experimentalSection', false ) &&
-		attributes.isSection
-			? attributes.sectionName
-			: undefined;
+		attributes.section?.name;
 
 	const label = sectionTitle || reusableBlockTitle || blockLabel;
 	// Label will fallback to the title if no label is defined for the current

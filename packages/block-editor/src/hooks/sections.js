@@ -18,22 +18,12 @@ import { hasBlockSupport } from '@wordpress/blocks';
  */
 export function addAttribute( settings ) {
 	if ( hasBlockSupport( settings, '__experimentalSection', false ) ) {
-		// Allow blocks to specify their own isSection attribute definition with default value if needed.
-		if ( ! has( settings.attributes, [ 'isSection' ] ) ) {
+		// Allow blocks to specify their own section attribute definition with default value if needed.
+		if ( ! has( settings.attributes, [ 'section' ] ) ) {
 			settings.attributes = {
 				...settings.attributes,
-				isSection: {
-					type: 'boolean',
-				},
-			};
-		}
-
-		// Allow blocks to specify their own sectionName attribute definition with default value if needed.
-		if ( ! has( settings.attributes, [ 'sectionName' ] ) ) {
-			settings.attributes = {
-				...settings.attributes,
-				sectionName: {
-					type: 'string',
+				section: {
+					type: 'object',
 				},
 			};
 		}
