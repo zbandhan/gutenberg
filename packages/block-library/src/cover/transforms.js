@@ -101,9 +101,7 @@ const transforms = {
 					backgroundColor: undefined,
 					gradient: undefined,
 					style:
-						attributes?.customOverlayColor ||
-						attributes?.customGradient ||
-						attributes?.style?.color
+						attributes?.customGradient || attributes?.style?.color
 							? {
 									...attributes?.style,
 									color: {
