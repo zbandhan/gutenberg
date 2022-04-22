@@ -36,9 +36,8 @@ export const BlockMover = ( {
 	isStackedHorizontally,
 } ) => {
 	const pickerRef = useRef();
-	const [ blockPageMoverState, setBlockPageMoverState ] = useState(
-		undefined
-	);
+	const [ blockPageMoverState, setBlockPageMoverState ] =
+		useState( undefined );
 	const showBlockPageMover = ( direction ) => () => {
 		if ( ! pickerRef.current ) {
 			setBlockPageMoverState( undefined );
@@ -151,9 +150,8 @@ export default compose(
 		};
 	} ),
 	withDispatch( ( dispatch, { clientIds, rootClientId } ) => {
-		const { moveBlocksDown, moveBlocksUp, moveBlocksToPosition } = dispatch(
-			blockEditorStore
-		);
+		const { moveBlocksDown, moveBlocksUp, moveBlocksToPosition } =
+			dispatch( blockEditorStore );
 		return {
 			onMoveDown: partial( moveBlocksDown, clientIds, rootClientId ),
 			onMoveUp: partial( moveBlocksUp, clientIds, rootClientId ),

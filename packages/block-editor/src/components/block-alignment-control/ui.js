@@ -116,12 +116,10 @@ function BlockAlignmentUI( {
 								<MenuGroup className="block-editor-block-alignment-control__menu-group">
 									{ enabledControls.map(
 										( { name: controlName, info } ) => {
-											const {
-												icon,
-												title,
-											} = BLOCK_ALIGNMENTS_CONTROLS[
-												controlName
-											];
+											const { icon, title } =
+												BLOCK_ALIGNMENTS_CONTROLS[
+													controlName
+												];
 											// If no value is provided, mark as selected the `none` option.
 											const isSelected =
 												controlName === value ||
@@ -135,7 +133,8 @@ function BlockAlignmentUI( {
 													className={ classNames(
 														'components-dropdown-menu__menu-item',
 														{
-															'is-active': isSelected,
+															'is-active':
+																isSelected,
 														}
 													) }
 													isSelected={ isSelected }

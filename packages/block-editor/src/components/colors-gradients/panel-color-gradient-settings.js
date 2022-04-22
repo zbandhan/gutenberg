@@ -64,10 +64,11 @@ const Indicators = ( { colors, gradients, settings } ) => {
 					( colorObject && colorObject.name ) || colorValue
 				);
 			} else {
-				const gradientObject = __experimentalGetGradientObjectByGradientValue(
-					availableGradients || gradients,
-					colorValue
-				);
+				const gradientObject =
+					__experimentalGetGradientObjectByGradientValue(
+						availableGradients || gradients,
+						colorValue
+					);
 				ariaLabel = sprintf(
 					gradientIndicatorAriaLabel,
 					label.toLowerCase(),

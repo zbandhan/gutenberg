@@ -35,12 +35,10 @@ class LatestPostsEdit extends Component {
 		this.state = {
 			categoriesList: [],
 		};
-		this.onSetDisplayPostContent = this.onSetDisplayPostContent.bind(
-			this
-		);
-		this.onSetDisplayPostContentRadio = this.onSetDisplayPostContentRadio.bind(
-			this
-		);
+		this.onSetDisplayPostContent =
+			this.onSetDisplayPostContent.bind( this );
+		this.onSetDisplayPostContentRadio =
+			this.onSetDisplayPostContentRadio.bind( this );
 		this.onSetExcerptLength = this.onSetExcerptLength.bind( this );
 		this.onSetDisplayPostDate = this.onSetDisplayPostDate.bind( this );
 		this.onSetOrder = this.onSetOrder.bind( this );

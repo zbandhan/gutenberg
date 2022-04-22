@@ -405,10 +405,8 @@ class FormTokenField extends Component {
 	}
 
 	addNewToken( token ) {
-		const {
-			__experimentalExpandOnFocus,
-			__experimentalValidateInput,
-		} = this.props;
+		const { __experimentalExpandOnFocus, __experimentalValidateInput } =
+			this.props;
 		if ( ! __experimentalValidateInput( token ) ) {
 			this.props.speak(
 				this.props.messages.__experimentalInvalid,
@@ -514,9 +512,8 @@ class FormTokenField extends Component {
 		const { incompleteTokenValue } = this.state;
 
 		const inputHasMinimumChars = incompleteTokenValue.trim().length > 1;
-		const matchingSuggestions = this.getMatchingSuggestions(
-			incompleteTokenValue
-		);
+		const matchingSuggestions =
+			this.getMatchingSuggestions( incompleteTokenValue );
 		const hasMatchingSuggestions = matchingSuggestions.length > 0;
 
 		const newState = {

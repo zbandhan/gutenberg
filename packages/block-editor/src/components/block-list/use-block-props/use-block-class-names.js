@@ -33,7 +33,8 @@ export function useBlockClassNames( clientId ) {
 				getSettings,
 				hasSelectedInnerBlock,
 				isTyping,
-				__experimentalGetActiveBlockIdByBlockNames: getActiveBlockIdByBlockNames,
+				__experimentalGetActiveBlockIdByBlockNames:
+					getActiveBlockIdByBlockNames,
 			} = select( blockEditorStore );
 			const {
 				__experimentalSpotlightEntityBlocks: spotlightEntityBlocks,

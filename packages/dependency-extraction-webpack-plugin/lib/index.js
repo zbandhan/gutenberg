@@ -126,9 +126,8 @@ class DependencyExtractionWebpackPlugin {
 					compilation.hooks.processAssets.tap(
 						{
 							name: this.constructor.name,
-							stage:
-								compiler.webpack.Compilation
-									.PROCESS_ASSETS_STAGE_ADDITIONAL,
+							stage: compiler.webpack.Compilation
+								.PROCESS_ASSETS_STAGE_ADDITIONAL,
 						},
 						() => this.addAssets( compilation, compiler )
 					);
@@ -175,9 +174,8 @@ class DependencyExtractionWebpackPlugin {
 
 			const processModule = ( { userRequest } ) => {
 				if ( this.externalizedDeps.has( userRequest ) ) {
-					const scriptDependency = this.mapRequestToDependency(
-						userRequest
-					);
+					const scriptDependency =
+						this.mapRequestToDependency( userRequest );
 					entrypointExternalizedWpDeps.add( scriptDependency );
 				}
 			};
@@ -261,8 +259,9 @@ class DependencyExtractionWebpackPlugin {
 			// The type indicates the option may be `undefined`.
 			// However, at this point in compilation, webpack has filled the options in if
 			// they were not provided.
-			const outputFolder = /** @type {{path:string}} */ ( compiler.options
-				.output ).path;
+			const outputFolder = /** @type {{path:string}} */ (
+				compiler.options.output
+			).path;
 
 			const assetsFilePath = path.resolve(
 				outputFolder,

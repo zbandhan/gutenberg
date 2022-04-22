@@ -397,8 +397,7 @@ describe( 'readConfig', () => {
 					},
 					{
 						type: 'git',
-						url:
-							'https://github.com/WordPress/theme-experiments.git',
+						url: 'https://github.com/WordPress/theme-experiments.git',
 						ref: 'tt1-blocks@0.4.3',
 						path: expect.stringMatching(
 							/^\/.*theme-experiments\/tt1-blocks$/
@@ -429,29 +428,25 @@ describe( 'readConfig', () => {
 				pluginSources: [
 					{
 						type: 'zip',
-						url:
-							'https://downloads.wordpress.org/plugin/gutenberg.zip',
+						url: 'https://downloads.wordpress.org/plugin/gutenberg.zip',
 						path: expect.stringMatching( /^\/.*gutenberg$/ ),
 						basename: 'gutenberg',
 					},
 					{
 						type: 'zip',
-						url:
-							'https://downloads.wordpress.org/plugin/gutenberg.8.1.0.zip',
+						url: 'https://downloads.wordpress.org/plugin/gutenberg.8.1.0.zip',
 						path: expect.stringMatching( /^\/.*gutenberg$/ ),
 						basename: 'gutenberg',
 					},
 					{
 						type: 'zip',
-						url:
-							'https://downloads.wordpress.org/theme/twentytwenty.zip',
+						url: 'https://downloads.wordpress.org/theme/twentytwenty.zip',
 						path: expect.stringMatching( /^\/.*twentytwenty$/ ),
 						basename: 'twentytwenty',
 					},
 					{
 						type: 'zip',
-						url:
-							'https://downloads.wordpress.org/theme/twentytwenty.1.3.zip',
+						url: 'https://downloads.wordpress.org/theme/twentytwenty.1.3.zip',
 						path: expect.stringMatching( /^\/.*twentytwenty$/ ),
 						basename: 'twentytwenty',
 					},
@@ -480,29 +475,25 @@ describe( 'readConfig', () => {
 				pluginSources: [
 					{
 						type: 'zip',
-						url:
-							'https://www.example.com/test/path/to/gutenberg.zip',
+						url: 'https://www.example.com/test/path/to/gutenberg.zip',
 						path: expect.stringMatching( /^\/.*gutenberg$/ ),
 						basename: 'gutenberg',
 					},
 					{
 						type: 'zip',
-						url:
-							'https://www.example.com/test/path/to/gutenberg.8.1.0.zip',
+						url: 'https://www.example.com/test/path/to/gutenberg.8.1.0.zip',
 						path: expect.stringMatching( /^\/.*gutenberg.8.1.0$/ ),
 						basename: 'gutenberg.8.1.0',
 					},
 					{
 						type: 'zip',
-						url:
-							'https://www.example.com/test/path/to/twentytwenty.zip',
+						url: 'https://www.example.com/test/path/to/twentytwenty.zip',
 						path: expect.stringMatching( /^\/.*twentytwenty$/ ),
 						basename: 'twentytwenty',
 					},
 					{
 						type: 'zip',
-						url:
-							'https://www.example.com/test/path/to/twentytwenty.1.3.zip',
+						url: 'https://www.example.com/test/path/to/twentytwenty.1.3.zip',
 						path: expect.stringMatching( /^\/.*twentytwenty.1.3$/ ),
 						basename: 'twentytwenty.1.3',
 					},

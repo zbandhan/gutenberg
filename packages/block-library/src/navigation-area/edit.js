@@ -27,9 +27,8 @@ function NavigationAreaBlock( { attributes, setAttributes } ) {
 
 	const { navigationAreas, hasResolvedNavigationAreas } = useSelect(
 		( select ) => {
-			const { getEntityRecords, hasFinishedResolution } = select(
-				coreStore
-			);
+			const { getEntityRecords, hasFinishedResolution } =
+				select( coreStore );
 			return {
 				navigationAreas: getEntityRecords( 'root', 'navigationArea' ),
 				hasResolvedNavigationAreas: hasFinishedResolution(

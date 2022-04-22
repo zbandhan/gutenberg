@@ -271,14 +271,10 @@ export function BorderPanel( props ) {
 						onChange={ onBorderChange }
 						popoverClassNames={ {
 							linked: 'block-editor__border-box-control__popover',
-							top:
-								'block-editor__border-box-control__popover-top',
-							right:
-								'block-editor__border-box-control__popover-right',
-							bottom:
-								'block-editor__border-box-control__popover-bottom',
-							left:
-								'block-editor__border-box-control__popover-left',
+							top: 'block-editor__border-box-control__popover-top',
+							right: 'block-editor__border-box-control__popover-right',
+							bottom: 'block-editor__border-box-control__popover-bottom',
+							left: 'block-editor__border-box-control__popover-left',
 						} }
 						showStyle={ isStyleSupported }
 						value={ hydratedBorder }

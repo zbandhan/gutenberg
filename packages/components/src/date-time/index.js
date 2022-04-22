@@ -32,9 +32,8 @@ function DateTimePicker(
 	},
 	ref
 ) {
-	const [ calendarHelpIsVisible, setCalendarHelpIsVisible ] = useState(
-		false
-	);
+	const [ calendarHelpIsVisible, setCalendarHelpIsVisible ] =
+		useState( false );
 
 	function onClickDescriptionToggle() {
 		setCalendarHelpIsVisible( ! calendarHelpIsVisible );

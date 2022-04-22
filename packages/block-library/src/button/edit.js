@@ -74,15 +74,8 @@ function ButtonEdit( props ) {
 		onReplace,
 		mergeBlocks,
 	} = props;
-	const {
-		linkTarget,
-		placeholder,
-		rel,
-		style,
-		text,
-		url,
-		width,
-	} = attributes;
+	const { linkTarget, placeholder, rel, style, text, url, width } =
+		attributes;
 	const onSetLinkRel = useCallback(
 		( value ) => {
 			setAttributes( { rel: value } );
@@ -156,7 +149,8 @@ function ButtonEdit( props ) {
 			<div
 				{ ...blockProps }
 				className={ classnames( blockProps.className, {
-					[ `has-custom-width wp-block-button__width-${ width }` ]: width,
+					[ `has-custom-width wp-block-button__width-${ width }` ]:
+						width,
 					[ `has-custom-font-size` ]: blockProps.style.fontSize,
 				} ) }
 			>

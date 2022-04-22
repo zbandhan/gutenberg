@@ -570,8 +570,8 @@ export function ColorEdit( props ) {
 									allSolids,
 									style?.elements?.link?.color?.text
 								),
-								clearable: !! style?.elements?.link?.color
-									?.text,
+								clearable:
+									!! style?.elements?.link?.color?.text,
 								isShownByDefault: defaultColorControls?.link,
 								hasValue: () => hasColor( 'link' )( props ),
 								onDeselect: () => resetLinkColor( props ),

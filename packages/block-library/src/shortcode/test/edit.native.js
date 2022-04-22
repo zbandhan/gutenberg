@@ -43,8 +43,7 @@ describe( 'Shortcode', () => {
 		const component = renderer.create(
 			<Shortcode
 				attributes={ {
-					text:
-						'[youtube https://www.youtube.com/watch?v=ssfHW5lwFZg]',
+					text: '[youtube https://www.youtube.com/watch?v=ssfHW5lwFZg]',
 				} }
 			/>
 		);

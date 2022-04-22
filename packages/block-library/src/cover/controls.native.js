@@ -207,10 +207,8 @@ function Controls( {
 										setDisplayPlaceholder( true );
 									} }
 									onLoad={ ( event ) => {
-										const {
-											height,
-											width,
-										} = event.naturalSize;
+										const { height, width } =
+											event.naturalSize;
 										setVideoNaturalSize( {
 											height,
 											width,

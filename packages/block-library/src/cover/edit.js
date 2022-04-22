@@ -339,22 +339,17 @@ function CoverEdit( {
 		? IMAGE_BACKGROUND_TYPE
 		: attributes.backgroundType;
 
-	const { __unstableMarkNextChangeAsNotPersistent } = useDispatch(
-		blockEditorStore
-	);
+	const { __unstableMarkNextChangeAsNotPersistent } =
+		useDispatch( blockEditorStore );
 	const { createErrorNotice } = useDispatch( noticesStore );
-	const {
-		gradientClass,
-		gradientValue,
-		setGradient,
-	} = __experimentalUseGradient();
+	const { gradientClass, gradientValue, setGradient } =
+		__experimentalUseGradient();
 	const onSelectMedia = attributesFromMedia( setAttributes, dimRatio );
 	const isUploadingMedia = isTemporaryMedia( id, url );
 
 	const [ prevMinHeightValue, setPrevMinHeightValue ] = useState( minHeight );
-	const [ prevMinHeightUnit, setPrevMinHeightUnit ] = useState(
-		minHeightUnit
-	);
+	const [ prevMinHeightUnit, setPrevMinHeightUnit ] =
+		useState( minHeightUnit );
 	const isMinFullHeight = minHeightUnit === 'vh' && minHeight === 100;
 
 	const toggleMinFullHeight = () => {
@@ -724,9 +719,8 @@ function CoverEdit( {
 			'is-transient': isUploadingMedia,
 			'has-parallax': hasParallax,
 			'is-repeated': isRepeated,
-			'has-custom-content-position': ! isContentPositionCenter(
-				contentPosition
-			),
+			'has-custom-content-position':
+				! isContentPositionCenter( contentPosition ),
 		},
 		getPositionClassName( contentPosition )
 	);

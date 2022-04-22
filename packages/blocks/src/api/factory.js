@@ -352,12 +352,10 @@ export function getPossibleBlockTransformations( blocks ) {
 		return [];
 	}
 
-	const blockTypesForFromTransforms = getBlockTypesForPossibleFromTransforms(
-		blocks
-	);
-	const blockTypesForToTransforms = getBlockTypesForPossibleToTransforms(
-		blocks
-	);
+	const blockTypesForFromTransforms =
+		getBlockTypesForPossibleFromTransforms( blocks );
+	const blockTypesForToTransforms =
+		getBlockTypesForPossibleToTransforms( blocks );
 
 	return uniq( [
 		...blockTypesForFromTransforms,
@@ -503,9 +501,8 @@ export function switchToBlockType( blocks, name ) {
 
 	if ( transformation.isMultiBlock ) {
 		if ( has( transformation, '__experimentalConvert' ) ) {
-			transformationResults = transformation.__experimentalConvert(
-				blocksArray
-			);
+			transformationResults =
+				transformation.__experimentalConvert( blocksArray );
 		} else {
 			transformationResults = transformation.transform(
 				blocksArray.map( ( currentBlock ) => currentBlock.attributes ),
@@ -513,9 +510,8 @@ export function switchToBlockType( blocks, name ) {
 			);
 		}
 	} else if ( has( transformation, '__experimentalConvert' ) ) {
-		transformationResults = transformation.__experimentalConvert(
-			firstBlock
-		);
+		transformationResults =
+			transformation.__experimentalConvert( firstBlock );
 	} else {
 		transformationResults = transformation.transform(
 			firstBlock.attributes,

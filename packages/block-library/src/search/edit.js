@@ -79,9 +79,8 @@ export default function SearchEdit( {
 
 	const insertedInNavigationBlock = useSelect(
 		( select ) => {
-			const { getBlockParentsByBlockName, wasBlockJustInserted } = select(
-				blockEditorStore
-			);
+			const { getBlockParentsByBlockName, wasBlockJustInserted } =
+				select( blockEditorStore );
 			return (
 				!! getBlockParentsByBlockName( clientId, 'core/navigation' )
 					?.length && wasBlockJustInserted( clientId )
@@ -89,9 +88,8 @@ export default function SearchEdit( {
 		},
 		[ clientId ]
 	);
-	const { __unstableMarkNextChangeAsNotPersistent } = useDispatch(
-		blockEditorStore
-	);
+	const { __unstableMarkNextChangeAsNotPersistent } =
+		useDispatch( blockEditorStore );
 	useEffect( () => {
 		if ( ! insertedInNavigationBlock ) return;
 		// This side-effect should not create an undo level.
@@ -415,12 +413,8 @@ export default function SearchEdit( {
 
 			if ( typeof borderRadius === 'object' ) {
 				// Individual corner border radii present.
-				const {
-					topLeft,
-					topRight,
-					bottomLeft,
-					bottomRight,
-				} = borderRadius;
+				const { topLeft, topRight, bottomLeft, bottomRight } =
+					borderRadius;
 
 				return {
 					...styles,

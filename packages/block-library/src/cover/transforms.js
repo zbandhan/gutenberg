@@ -65,13 +65,8 @@ const transforms = {
 			type: 'block',
 			blocks: [ 'core/group' ],
 			transform: ( attributes, innerBlocks ) => {
-				const {
-					align,
-					anchor,
-					backgroundColor,
-					gradient,
-					style,
-				} = attributes;
+				const { align, anchor, backgroundColor, gradient, style } =
+					attributes;
 
 				// If no background or gradient color is provided, default to 50% opacity.
 				// This matches the styling of a Cover block with a background image,

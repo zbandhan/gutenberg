@@ -30,9 +30,8 @@ function BlockPopoverInbetween( {
 } ) {
 	const { orientation, rootClientId } = useSelect(
 		( select ) => {
-			const { getBlockListSettings, getBlockRootClientId } = select(
-				blockEditorStore
-			);
+			const { getBlockListSettings, getBlockRootClientId } =
+				select( blockEditorStore );
 
 			const _rootClientId = getBlockRootClientId( previousClientId );
 			return {

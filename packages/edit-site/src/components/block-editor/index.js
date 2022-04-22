@@ -50,25 +50,22 @@ const LAYOUT = {
 export default function BlockEditor( { setIsInserterOpen } ) {
 	const { settings } = useSelect(
 		( select ) => {
-			let storedSettings = select( editSiteStore ).getSettings(
-				setIsInserterOpen
-			);
+			let storedSettings =
+				select( editSiteStore ).getSettings( setIsInserterOpen );
 
 			if ( ! storedSettings.__experimentalBlockPatterns ) {
 				storedSettings = {
 					...storedSettings,
-					__experimentalBlockPatterns: select(
-						coreStore
-					).getBlockPatterns(),
+					__experimentalBlockPatterns:
+						select( coreStore ).getBlockPatterns(),
 				};
 			}
 
 			if ( ! storedSettings.__experimentalBlockPatternCategories ) {
 				storedSettings = {
 					...storedSettings,
-					__experimentalBlockPatternCategories: select(
-						coreStore
-					).getBlockPatternCategories(),
+					__experimentalBlockPatternCategories:
+						select( coreStore ).getBlockPatternCategories(),
 				};
 			}
 
@@ -81,9 +78,8 @@ export default function BlockEditor( { setIsInserterOpen } ) {
 
 	const { templateType, templateId, page } = useSelect(
 		( select ) => {
-			const { getEditedPostType, getEditedPostId, getPage } = select(
-				editSiteStore
-			);
+			const { getEditedPostType, getEditedPostId, getPage } =
+				select( editSiteStore );
 
 			return {
 				templateType: getEditedPostType(),

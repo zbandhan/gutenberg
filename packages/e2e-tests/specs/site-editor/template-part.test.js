@@ -314,9 +314,10 @@ describe( 'Template Part', () => {
 				await awaitHeaderLoad();
 				// Try to insert the template part we created.
 				await insertBlock( 'Template Part' );
-				const chooseExistingButton = await siteEditorCanvas.waitForXPath(
-					chooseExistingButtonSelector
-				);
+				const chooseExistingButton =
+					await siteEditorCanvas.waitForXPath(
+						chooseExistingButtonSelector
+					);
 				await chooseExistingButton.click();
 				const preview = await page.waitForSelector(
 					'.block-editor-block-patterns-list__item'

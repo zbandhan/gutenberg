@@ -57,9 +57,8 @@ export default function TableOfContentsEdit( {
 
 	const { listBlockExists, postContent } = useSelect(
 		( select ) => ( {
-			listBlockExists: !! select( blocksStore ).getBlockType(
-				'core/list'
-			),
+			listBlockExists:
+				!! select( blocksStore ).getBlockType( 'core/list' ),
 			// FIXME: @wordpress/block-library should not depend on @wordpress/editor.
 			// Blocks can be loaded into a *non-post* block editor.
 			// eslint-disable-next-line @wordpress/data-no-store-string-literals

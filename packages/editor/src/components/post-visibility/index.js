@@ -165,9 +165,8 @@ export class PostVisibility extends Component {
 
 export default compose( [
 	withSelect( ( select ) => {
-		const { getEditedPostAttribute, getEditedPostVisibility } = select(
-			editorStore
-		);
+		const { getEditedPostAttribute, getEditedPostVisibility } =
+			select( editorStore );
 		return {
 			status: getEditedPostAttribute( 'status' ),
 			visibility: getEditedPostVisibility(),

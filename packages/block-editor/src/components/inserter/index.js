@@ -214,9 +214,8 @@ export default compose( [
 
 		const allowedBlocks = __experimentalGetAllowedBlocks( rootClientId );
 
-		const directInsertBlock = __experimentalGetDirectInsertBlock(
-			rootClientId
-		);
+		const directInsertBlock =
+			__experimentalGetDirectInsertBlock( rootClientId );
 
 		const hasSingleBlockType =
 			size( allowedBlocks ) === 1 &&
@@ -256,9 +255,8 @@ export default compose( [
 				}
 
 				function getAdjacentBlockAttributes( attributesToCopy ) {
-					const { getBlock, getPreviousBlockClientId } = select(
-						blockEditorStore
-					);
+					const { getBlock, getPreviousBlockClientId } =
+						select( blockEditorStore );
 
 					if (
 						! attributesToCopy ||

@@ -10,27 +10,31 @@ import { store as preferencesStore } from '@wordpress/preferences';
  * @param {string} scope Complementary area scope.
  * @param {string} area  Area identifier.
  */
-export const enableComplementaryArea = ( scope, area ) => ( { registry } ) => {
-	// Return early if there's no area.
-	if ( ! area ) {
-		return;
-	}
+export const enableComplementaryArea =
+	( scope, area ) =>
+	( { registry } ) => {
+		// Return early if there's no area.
+		if ( ! area ) {
+			return;
+		}
 
-	registry
-		.dispatch( preferencesStore )
-		.set( scope, 'complementaryArea', area );
-};
+		registry
+			.dispatch( preferencesStore )
+			.set( scope, 'complementaryArea', area );
+	};
 
 /**
  * Disable the complementary area.
  *
  * @param {string} scope Complementary area scope.
  */
-export const disableComplementaryArea = ( scope ) => ( { registry } ) => {
-	registry
-		.dispatch( preferencesStore )
-		.set( scope, 'complementaryArea', null );
-};
+export const disableComplementaryArea =
+	( scope ) =>
+	( { registry } ) => {
+		registry
+			.dispatch( preferencesStore )
+			.set( scope, 'complementaryArea', null );
+	};
 
 /**
  * Pins an item.
@@ -40,26 +44,28 @@ export const disableComplementaryArea = ( scope ) => ( { registry } ) => {
  *
  * @return {Object} Action object.
  */
-export const pinItem = ( scope, item ) => ( { registry } ) => {
-	// Return early if there's no item.
-	if ( ! item ) {
-		return;
-	}
+export const pinItem =
+	( scope, item ) =>
+	( { registry } ) => {
+		// Return early if there's no item.
+		if ( ! item ) {
+			return;
+		}
 
-	const pinnedItems = registry
-		.select( preferencesStore )
-		.get( scope, 'pinnedItems' );
+		const pinnedItems = registry
+			.select( preferencesStore )
+			.get( scope, 'pinnedItems' );
 
-	// The item is already pinned, there's nothing to do.
-	if ( pinnedItems?.[ item ] === true ) {
-		return;
-	}
+		// The item is already pinned, there's nothing to do.
+		if ( pinnedItems?.[ item ] === true ) {
+			return;
+		}
 
-	registry.dispatch( preferencesStore ).set( scope, 'pinnedItems', {
-		...pinnedItems,
-		[ item ]: true,
-	} );
-};
+		registry.dispatch( preferencesStore ).set( scope, 'pinnedItems', {
+			...pinnedItems,
+			[ item ]: true,
+		} );
+	};
 
 /**
  * Unpins an item.
@@ -67,21 +73,23 @@ export const pinItem = ( scope, item ) => ( { registry } ) => {
  * @param {string} scope Item scope.
  * @param {string} item  Item identifier.
  */
-export const unpinItem = ( scope, item ) => ( { registry } ) => {
-	// Return early if there's no item.
-	if ( ! item ) {
-		return;
-	}
+export const unpinItem =
+	( scope, item ) =>
+	( { registry } ) => {
+		// Return early if there's no item.
+		if ( ! item ) {
+			return;
+		}
 
-	const pinnedItems = registry
-		.select( preferencesStore )
-		.get( scope, 'pinnedItems' );
+		const pinnedItems = registry
+			.select( preferencesStore )
+			.get( scope, 'pinnedItems' );
 
-	registry.dispatch( preferencesStore ).set( scope, 'pinnedItems', {
-		...pinnedItems,
-		[ item ]: false,
-	} );
-};
+		registry.dispatch( preferencesStore ).set( scope, 'pinnedItems', {
+			...pinnedItems,
+			[ item ]: false,
+		} );
+	};
 
 /**
  * Returns an action object used in signalling that a feature should be toggled.

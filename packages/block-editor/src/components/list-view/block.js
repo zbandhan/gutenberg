@@ -100,7 +100,8 @@ function ListViewBlock( {
 
 	const {
 		__experimentalFeatures: withExperimentalFeatures,
-		__experimentalPersistentListViewFeatures: withExperimentalPersistentListViewFeatures,
+		__experimentalPersistentListViewFeatures:
+			withExperimentalPersistentListViewFeatures,
 		__experimentalHideContainerBlockActions: hideContainerBlockActions,
 		isTreeGridMounted,
 		expand,

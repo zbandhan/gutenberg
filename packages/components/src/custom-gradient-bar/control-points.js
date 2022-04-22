@@ -118,11 +118,8 @@ function ControlPoints( {
 			gradientPickerDomRef.current,
 			GRADIENT_MARKERS_WIDTH
 		);
-		const {
-			initialPosition,
-			index,
-			significantMoveHappened,
-		} = controlPointMoveState.current;
+		const { initialPosition, index, significantMoveHappened } =
+			controlPointMoveState.current;
 		if (
 			! significantMoveHappened &&
 			Math.abs( initialPosition - relativePosition ) >=

@@ -40,9 +40,8 @@ const ControlledSyncUnits = () => {
 	// Keep the unit sync'd between the two `UnitControl` instances.
 	const onUnitControlChange = ( fieldName, newValue ) => {
 		// eslint-disable-next-line @wordpress/no-unused-vars-before-return
-		const [ quantity, newUnit ] = parseQuantityAndUnitFromRawValue(
-			newValue
-		);
+		const [ quantity, newUnit ] =
+			parseQuantityAndUnitFromRawValue( newValue );
 
 		if ( ! Number.isFinite( quantity ) ) {
 			return;
@@ -51,10 +50,8 @@ const ControlledSyncUnits = () => {
 		const nextState = { ...state, [ fieldName ]: newValue };
 
 		Object.entries( state ).forEach( ( [ stateProp, stateValue ] ) => {
-			const [
-				stateQuantity,
-				stateUnit,
-			] = parseQuantityAndUnitFromRawValue( stateValue );
+			const [ stateQuantity, stateUnit ] =
+				parseQuantityAndUnitFromRawValue( stateValue );
 
 			if ( stateProp !== fieldName && stateUnit !== newUnit ) {
 				nextState[ stateProp ] = `${ stateQuantity }${ newUnit }`;

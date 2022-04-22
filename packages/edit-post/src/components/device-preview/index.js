@@ -14,25 +14,21 @@ import { useDispatch, useSelect } from '@wordpress/data';
 import { store as editPostStore } from '../../store';
 
 export default function DevicePreview() {
-	const {
-		hasActiveMetaboxes,
-		isPostSaveable,
-		isSaving,
-		deviceType,
-	} = useSelect(
-		( select ) => ( {
-			hasActiveMetaboxes: select( editPostStore ).hasMetaBoxes(),
-			isSaving: select( editPostStore ).isSavingMetaBoxes(),
-			isPostSaveable: select( editorStore ).isEditedPostSaveable(),
-			deviceType: select(
-				editPostStore
-			).__experimentalGetPreviewDeviceType(),
-		} ),
-		[]
-	);
-	const {
-		__experimentalSetPreviewDeviceType: setPreviewDeviceType,
-	} = useDispatch( editPostStore );
+	const { hasActiveMetaboxes, isPostSaveable, isSaving, deviceType } =
+		useSelect(
+			( select ) => ( {
+				hasActiveMetaboxes: select( editPostStore ).hasMetaBoxes(),
+				isSaving: select( editPostStore ).isSavingMetaBoxes(),
+				isPostSaveable: select( editorStore ).isEditedPostSaveable(),
+				deviceType:
+					select(
+						editPostStore
+					).__experimentalGetPreviewDeviceType(),
+			} ),
+			[]
+		);
+	const { __experimentalSetPreviewDeviceType: setPreviewDeviceType } =
+		useDispatch( editPostStore );
 
 	return (
 		<PreviewOptions

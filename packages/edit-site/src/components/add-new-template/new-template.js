@@ -78,9 +78,8 @@ export default function NewTemplate( { postType } ) {
 				'wp_template',
 				{ per_page: -1 }
 			),
-			defaultTemplateTypes: select(
-				editorStore
-			).__experimentalGetDefaultTemplateTypes(),
+			defaultTemplateTypes:
+				select( editorStore ).__experimentalGetDefaultTemplateTypes(),
 		} ),
 		[]
 	);

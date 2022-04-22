@@ -42,9 +42,8 @@ export default function useIndentListItem( clientId ) {
 			const selectionEnd = getSelectionEnd();
 
 			const parentId = getBlockRootClientId( clientId );
-			const previousSiblingId = getBlockOrder( parentId )[
-				getBlockIndex( clientId ) - 1
-			];
+			const previousSiblingId =
+				getBlockOrder( parentId )[ getBlockIndex( clientId ) - 1 ];
 			const previousSibling = getBlock( previousSiblingId );
 			const previousSiblingChildren =
 				first( previousSibling.innerBlocks )?.innerBlocks || [];

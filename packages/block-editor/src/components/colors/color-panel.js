@@ -60,10 +60,8 @@ export default function ColorPanel( {
 							}
 					  )
 					: map( colorSettings, ( { value } ) => {
-							let {
-								backgroundColor,
-								textColor,
-							} = contrastCheckers;
+							let { backgroundColor, textColor } =
+								contrastCheckers;
 							backgroundColor = resolveContrastCheckerColor(
 								backgroundColor || value,
 								colorSettings,

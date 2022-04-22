@@ -379,10 +379,9 @@ export const __experimentalGetDirtyEntityRecords = createSelector(
 						dirtyRecords.push( {
 							// We avoid using primaryKey because it's transformed into a string
 							// when it's used as an object key.
-							key:
-								entityRecord[
-									entityConfig.key || DEFAULT_ENTITY_KEY
-								],
+							key: entityRecord[
+								entityConfig.key || DEFAULT_ENTITY_KEY
+							],
 							title:
 								entityConfig?.getTitle?.( entityRecord ) || '',
 							name,
@@ -431,10 +430,9 @@ export const __experimentalGetEntitiesBeingSaved = createSelector(
 						recordsBeingSaved.push( {
 							// We avoid using primaryKey because it's transformed into a string
 							// when it's used as an object key.
-							key:
-								entityRecord[
-									entityConfig.key || DEFAULT_ENTITY_KEY
-								],
+							key: entityRecord[
+								entityConfig.key || DEFAULT_ENTITY_KEY
+							],
 							title:
 								entityConfig?.getTitle?.( entityRecord ) || '',
 							name,

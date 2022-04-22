@@ -144,45 +144,47 @@ export function useInputControlStateReducer(
 		mergeInitialState( initialState )
 	);
 
-	const createChangeEvent = ( type: actions.ChangeEventAction[ 'type' ] ) => (
-		nextValue: actions.ChangeEventAction[ 'payload' ][ 'value' ],
-		event: actions.ChangeEventAction[ 'payload' ][ 'event' ]
-	) => {
-		/**
-		 * Persist allows for the (Synthetic) event to be used outside of
-		 * this function call.
-		 * https://reactjs.org/docs/events.html#event-pooling
-		 */
-		if ( event && event.persist ) {
-			event.persist();
-		}
+	const createChangeEvent =
+		( type: actions.ChangeEventAction[ 'type' ] ) =>
+		(
+			nextValue: actions.ChangeEventAction[ 'payload' ][ 'value' ],
+			event: actions.ChangeEventAction[ 'payload' ][ 'event' ]
+		) => {
+			/**
+			 * Persist allows for the (Synthetic) event to be used outside of
+			 * this function call.
+			 * https://reactjs.org/docs/events.html#event-pooling
+			 */
+			if ( event && event.persist ) {
+				event.persist();
+			}
 
-		dispatch( {
-			type,
-			payload: { value: nextValue, event },
-		} as actions.InputAction );
-	};
+			dispatch( {
+				type,
+				payload: { value: nextValue, event },
+			} as actions.InputAction );
+		};
 
-	const createKeyEvent = ( type: actions.KeyEventAction[ 'type' ] ) => (
-		event: actions.KeyEventAction[ 'payload' ][ 'event' ]
-	) => {
-		/**
-		 * Persist allows for the (Synthetic) event to be used outside of
-		 * this function call.
-		 * https://reactjs.org/docs/events.html#event-pooling
-		 */
-		if ( event && event.persist ) {
-			event.persist();
-		}
+	const createKeyEvent =
+		( type: actions.KeyEventAction[ 'type' ] ) =>
+		( event: actions.KeyEventAction[ 'payload' ][ 'event' ] ) => {
+			/**
+			 * Persist allows for the (Synthetic) event to be used outside of
+			 * this function call.
+			 * https://reactjs.org/docs/events.html#event-pooling
+			 */
+			if ( event && event.persist ) {
+				event.persist();
+			}
 
-		dispatch( { type, payload: { event } } );
-	};
+			dispatch( { type, payload: { event } } );
+		};
 
-	const createDragEvent = ( type: actions.DragEventAction[ 'type' ] ) => (
-		payload: actions.DragEventAction[ 'payload' ]
-	) => {
-		dispatch( { type, payload } );
-	};
+	const createDragEvent =
+		( type: actions.DragEventAction[ 'type' ] ) =>
+		( payload: actions.DragEventAction[ 'payload' ] ) => {
+			dispatch( { type, payload } );
+		};
 
 	/**
 	 * Actions for the reducer

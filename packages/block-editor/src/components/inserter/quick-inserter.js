@@ -48,31 +48,28 @@ export default function QuickInserter( {
 		destinationRootClientId
 	);
 
-	const {
-		setInserterIsOpened,
-		insertionIndex,
-		prioritizePatterns,
-	} = useSelect(
-		( select ) => {
-			const { getSettings, getBlockIndex, getBlockCount } = select(
-				blockEditorStore
-			);
-			const settings = getSettings();
-			const index = getBlockIndex( clientId );
-			const blockCount = getBlockCount();
+	const { setInserterIsOpened, insertionIndex, prioritizePatterns } =
+		useSelect(
+			( select ) => {
+				const { getSettings, getBlockIndex, getBlockCount } =
+					select( blockEditorStore );
+				const settings = getSettings();
+				const index = getBlockIndex( clientId );
+				const blockCount = getBlockCount();
 
-			return {
-				setInserterIsOpened: settings.__experimentalSetIsInserterOpened,
-				prioritizePatterns:
-					settings.__experimentalPreferPatternsOnRoot &&
-					! rootClientId &&
-					index > 0 &&
-					( index < blockCount || blockCount === 0 ),
-				insertionIndex: index === -1 ? blockCount : index,
-			};
-		},
-		[ clientId, rootClientId ]
-	);
+				return {
+					setInserterIsOpened:
+						settings.__experimentalSetIsInserterOpened,
+					prioritizePatterns:
+						settings.__experimentalPreferPatternsOnRoot &&
+						! rootClientId &&
+						index > 0 &&
+						( index < blockCount || blockCount === 0 ),
+					insertionIndex: index === -1 ? blockCount : index,
+				};
+			},
+			[ clientId, rootClientId ]
+		);
 
 	const showPatterns =
 		patterns.length && ( !! filterValue || prioritizePatterns );

@@ -109,9 +109,10 @@ function EditorHelpTopics( { close, isVisible, onClose } ) {
 							</BottomSheet.NavBar>
 							<BottomSheetConsumer>
 								{ ( { listProps } ) => {
-									const contentContainerStyle = StyleSheet.flatten(
-										listProps.contentContainerStyle
-									);
+									const contentContainerStyle =
+										StyleSheet.flatten(
+											listProps.contentContainerStyle
+										);
 									return (
 										<ScrollView
 											{ ...listProps }
@@ -136,9 +137,8 @@ function EditorHelpTopics( { close, isVisible, onClose } ) {
 												{ /* Print out help topics. */ }
 												{ HELP_TOPICS.map(
 													( { label, icon } ) => {
-														const labelSlug = kebabCase(
-															label
-														);
+														const labelSlug =
+															kebabCase( label );
 														return (
 															<HelpTopicRow
 																key={

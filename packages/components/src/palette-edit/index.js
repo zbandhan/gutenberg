@@ -308,9 +308,8 @@ export default function PaletteEdit( {
 									: __( 'Add color' )
 							}
 							onClick={ () => {
-								const tempOptionName = getNameForPosition(
-									elementsLength
-								);
+								const tempOptionName =
+									getNameForPosition( elementsLength );
 								onChange( [
 									...elements,
 									{

@@ -73,9 +73,8 @@ function setContentEditableWrapper( node, value ) {
  * Sets a multi-selection based on the native selection across blocks.
  */
 export default function useSelectionObserver() {
-	const { multiSelect, selectBlock, selectionChange } = useDispatch(
-		blockEditorStore
-	);
+	const { multiSelect, selectBlock, selectionChange } =
+		useDispatch( blockEditorStore );
 	const { getBlockParents } = useSelect( blockEditorStore );
 	return useRefEffect(
 		( node ) => {

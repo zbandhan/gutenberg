@@ -43,15 +43,17 @@ describe( 'Gutenberg Editor Cover Block test', () => {
 		// Can only add image from media library on iOS
 		if ( ! isAndroid() ) {
 			// Open block settings.
-			const settingsButton = await editorPage.driver.elementByAccessibilityId(
-				'Open Settings'
-			);
+			const settingsButton =
+				await editorPage.driver.elementByAccessibilityId(
+					'Open Settings'
+				);
 			await settingsButton.click();
 
 			// Add initial media via button within bottom sheet.
-			const mediaSection = await editorPage.driver.elementByAccessibilityId(
-				'Media Add image or video'
-			);
+			const mediaSection =
+				await editorPage.driver.elementByAccessibilityId(
+					'Media Add image or video'
+				);
 			const addMediaButton = await mediaSection.elementByAccessibilityId(
 				'Add image or video'
 			);
@@ -61,21 +63,20 @@ describe( 'Gutenberg Editor Cover Block test', () => {
 			// Edit media within block settings.
 			await settingsButton.click();
 			await editorPage.driver.sleep( 2000 ); // Await media load.
-			const editImageButton = await editorPage.driver.elementsByAccessibilityId(
-				'Edit image'
-			);
+			const editImageButton =
+				await editorPage.driver.elementsByAccessibilityId(
+					'Edit image'
+				);
 			await editImageButton[ editImageButton.length - 1 ].click();
 
 			// Replace image.
-			const replaceButton = await editorPage.driver.elementByAccessibilityId(
-				'Replace'
-			);
+			const replaceButton =
+				await editorPage.driver.elementByAccessibilityId( 'Replace' );
 			await replaceButton.click();
 
 			// First modal should no longer be presented.
-			const replaceButtons = await editorPage.driver.elementsByAccessibilityId(
-				'Replace'
-			);
+			const replaceButtons =
+				await editorPage.driver.elementsByAccessibilityId( 'Replace' );
 			// eslint-disable-next-line jest/no-conditional-expect
 			expect( replaceButtons.length ).toBe( 0 );
 
