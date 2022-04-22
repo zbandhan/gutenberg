@@ -74,9 +74,7 @@ function BlockPopoverInbetween( {
 
 		if ( isVertical ) {
 			return {
-				width: previousElement
-					? previousElement.offsetWidth
-					: nextElement.offsetWidth,
+				width: previousRect ? previousRect.width : nextRect.width,
 				height:
 					nextRect && previousRect
 						? nextRect.top - previousRect.bottom
@@ -93,9 +91,7 @@ function BlockPopoverInbetween( {
 
 		return {
 			width,
-			height: previousElement
-				? previousElement.offsetHeight
-				: nextElement.offsetHeight,
+			height: previousRect ? previousRect.height : nextRect.height,
 		};
 	}, [ previousElement, nextElement, isVertical, positionRecompute ] );
 
@@ -183,6 +179,7 @@ function BlockPopoverInbetween( {
 				'block-editor-block-popover',
 				props.className
 			) }
+			__unstableForcePosition
 		>
 			<div
 				className="block-editor-block-popover__inbetween-container"
