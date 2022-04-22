@@ -407,6 +407,9 @@ class WP_Style_Engine {
 		}
 
 		foreach ( $style_value as $key => $value ) {
+			if ( ! $value ) {
+				continue;
+			}
 			$side_style_definition_path = array( $style_definition['path'][0], $key );
 			$side_style_definition      = _wp_array_get( self::BLOCK_STYLE_DEFINITIONS_METADATA, $side_style_definition_path, null );
 

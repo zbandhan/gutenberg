@@ -107,7 +107,13 @@ function gutenberg_apply_border_support( $block_type, $block_attributes ) {
 	// Generate styles for individual border sides.
 	if ( $has_border_color_support || $has_border_width_support ) {
 		foreach ( $sides as $side ) {
-			$border_block_styles[ $side ] = _wp_array_get( $block_attributes, array( 'style', 'border', $side ), null );
+			$border                       = _wp_array_get( $block_attributes, array( 'style', 'border', $side ), null );
+			$border_side_values           = array(
+				'width' => isset( $border['width'] ) && ! gutenberg_should_skip_block_supports_serialization( $block_type, '__experimentalBorder', 'width' ) ? $border['width'] : null,
+				'color' => isset( $border['color'] ) && ! gutenberg_should_skip_block_supports_serialization( $block_type, '__experimentalBorder', 'color' ) ? $border['color'] : null,
+				'style' => isset( $border['style'] ) && ! gutenberg_should_skip_block_supports_serialization( $block_type, '__experimentalBorder', 'style' ) ? $border['style'] : null,
+			);
+			$border_block_styles[ $side ] = $border_side_values;
 		}
 	}
 
