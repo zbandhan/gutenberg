@@ -125,6 +125,7 @@ require __DIR__ . '/compat/wordpress-6.0/client-assets.php';
 
 // WordPress 6.1 compat.
 require __DIR__ . '/compat/wordpress-6.1/blocks.php';
+require __DIR__ . '/compat/wordpress-6.1/class-wp-theme-json-6-1.php';
 
 // Experimental features.
 require __DIR__ . '/experimental/block-editor-settings-mobile.php';
