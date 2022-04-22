@@ -29,6 +29,7 @@ import styles from './dropping-insertion-point.scss';
  *
  * @param {Object}                                        props                  Component props.
  * @param {Object}                                        props.scroll           Scroll offset object.
+ * @param {Object}                                        props.currentYPosition Current Y coordinate position when dragging.
  * @param {import('react-native-reanimated').SharedValue} props.isDragging       Whether or not dragging has started.
  * @param {import('react-native-reanimated').SharedValue} props.targetBlockIndex Current block target index.
  *
@@ -36,6 +37,7 @@ import styles from './dropping-insertion-point.scss';
  */
 export default function DroppingInsertionPoint( {
 	scroll,
+	currentYPosition,
 	isDragging,
 	targetBlockIndex,
 } ) {
@@ -61,6 +63,16 @@ export default function DroppingInsertionPoint( {
 			}
 		}
 	);
+
+	function getSelectedBlockIndicatorPosition( positions ) {
+		const currentYPositionWithScroll =
+			currentYPosition.value + scroll.offsetY.value;
+		const midpoint = ( positions.top + positions.bottom ) / 2;
+
+		return midpoint < currentYPositionWithScroll
+			? positions.bottom
+			: positions.top;
+	}
 
 	function setIndicatorPosition( index ) {
 		const insertionPointIndex = index;
@@ -96,9 +108,23 @@ export default function DroppingInsertionPoint( {
 			? findBlockLayoutByClientId( blocksLayouts.current, nextClientId )
 			: null;
 
-		const nextPosition = previousElement
-			? previousElement.y + previousElement.height
-			: nextElement?.y;
+		const elementsPositions = {
+			top: Math.floor(
+				previousElement
+					? previousElement.y + previousElement.height
+					: nextElement?.y
+			),
+			bottom: Math.floor(
+				nextElement
+					? nextElement.y
+					: previousElement.y + previousElement.height
+			),
+		};
+
+		const nextPosition =
+			elementsPositions.top !== elementsPositions.bottom
+				? getSelectedBlockIndicatorPosition( elementsPositions )
+				: elementsPositions.top;
 
 		if ( nextPosition && blockYPosition.value !== nextPosition ) {
 			opacity.value = 0;

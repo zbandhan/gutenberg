@@ -85,6 +85,7 @@ const BlockDraggableWrapper = ( { children } ) => {
 		width: useSharedValue( 0 ),
 		height: useSharedValue( 0 ),
 	};
+	const currentYPosition = useSharedValue( 0 );
 	const isDragging = useSharedValue( false );
 
 	const [
@@ -167,6 +168,7 @@ const BlockDraggableWrapper = ( { children } ) => {
 		const dragPosition = { x, y };
 		chip.x.value = dragPosition.x;
 		chip.y.value = dragPosition.y;
+		currentYPosition.value = dragPosition.y;
 
 		isDragging.value = true;
 
@@ -178,6 +180,7 @@ const BlockDraggableWrapper = ( { children } ) => {
 		const dragPosition = { x, y };
 		chip.x.value = dragPosition.x;
 		chip.y.value = dragPosition.y;
+		currentYPosition.value = dragPosition.y;
 
 		runOnJS( onBlockDragOver )( { x, y: y + scroll.offsetY.value } );
 
@@ -215,6 +218,7 @@ const BlockDraggableWrapper = ( { children } ) => {
 		<>
 			<DroppingInsertionPoint
 				scroll={ scroll }
+				currentYPosition={ currentYPosition }
 				isDragging={ isDragging }
 				targetBlockIndex={ targetBlockIndex }
 			/>
