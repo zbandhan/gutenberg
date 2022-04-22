@@ -27,6 +27,7 @@ import {
 } from '@wordpress/element';
 import { getBlockType } from '@wordpress/blocks';
 import RCTAztecView from '@wordpress/react-native-aztec';
+import { generateHapticFeedback } from '@wordpress/react-native-bridge';
 
 /**
  * Internal dependencies
@@ -130,6 +131,7 @@ const BlockDraggableWrapper = ( { children } ) => {
 			startDraggingBlocks( [ clientId ] );
 			setDraggedBlockIconByClientId( clientId );
 			runOnUI( startScrolling )( position.y );
+			generateHapticFeedback();
 		} else {
 			// We stop dragging if no block is found.
 			runOnUI( stopDragging )();
