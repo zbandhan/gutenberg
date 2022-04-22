@@ -380,7 +380,7 @@ class WP_Style_Engine {
 		// We assume box model-like properties.
 		if ( is_array( $style_value ) ) {
 			foreach ( $style_value as $key => $value ) {
-				$side_property           = strtr( $style_properties['sides'], array( '$side' => $key ) );
+				$side_property           = strtr( $style_properties['sides'], array( '$side' => _wp_to_kebab_case( $key ) ) );
 				$rules[ $side_property ] = $value;
 			}
 		} else {
@@ -394,41 +394,39 @@ class WP_Style_Engine {
 	 * Style value parser that returns a CSS ruleset for style groups that have 'top', 'right', 'bottom', 'left' keys.
 	 * E.g., `border.top{color|width|style}.
 	 *
-	 * @param string|array $style_value      A single raw Gutenberg style attributes value for a CSS property.
-	 * @param array        $style_definition A single style definition from BLOCK_STYLE_DEFINITIONS_METADATA.
+	 * @param array $style_value      A single raw Gutenberg style attributes value for a CSS property.
+	 * @param array $style_definition A single style definition from BLOCK_STYLE_DEFINITIONS_METADATA.
 	 *
 	 * @return array The class name for the added style.
 	 */
 	protected static function get_css_side_rules( $style_value, $style_definition ) {
 		$rules = array();
 
-		if ( ! $style_value ) {
+		if ( ! is_array( $style_value ) || empty( $style_value ) ) {
 			return $rules;
 		}
 
-		if ( is_array( $style_value ) ) {
-			foreach ( $style_value as $key => $value ) {
-				$side_style_definition_path = array( $style_definition['path'][0], $key );
-				$side_style_definition      = _wp_array_get( self::BLOCK_STYLE_DEFINITIONS_METADATA, $side_style_definition_path, null );
+		foreach ( $style_value as $key => $value ) {
+			$side_style_definition_path = array( $style_definition['path'][0], $key );
+			$side_style_definition      = _wp_array_get( self::BLOCK_STYLE_DEFINITIONS_METADATA, $side_style_definition_path, null );
 
-				if ( $side_style_definition ) {
-					$side_property = strtr( $side_style_definition['properties']['sides'], array( '$side' => $style_definition['path'][1] ) );
+			if ( $side_style_definition ) {
+				$side_property = strtr( $side_style_definition['properties']['sides'], array( '$side' => $style_definition['path'][1] ) );
 
-					// Set a CSS var if there is a valid preset value.
-					$slug = isset( $style_definition['css_vars'][ $key ] ) ? static::get_slug_from_preset_value( $value, $key ) : null;
-					if ( $slug ) {
-						$css_var = strtr(
-							$style_definition['css_vars'][ $key ],
-							array(
-								'$property' => $key,
-								'$slug'     => $slug,
-							)
-						);
-						$value   = "var($css_var)";
-					}
-
-					$rules[ $side_property ] = $value;
+				// Set a CSS var if there is a valid preset value.
+				$slug = isset( $style_definition['css_vars'][ $key ] ) ? static::get_slug_from_preset_value( $value, $key ) : null;
+				if ( $slug ) {
+					$css_var = strtr(
+						$style_definition['css_vars'][ $key ],
+						array(
+							'$property' => $key,
+							'$slug'     => $slug,
+						)
+					);
+					$value   = "var($css_var)";
 				}
+
+				$rules[ $side_property ] = $value;
 			}
 		}
 
