@@ -711,7 +711,7 @@ class WP_Theme_JSON_Gutenberg extends WP_Theme_JSON_5_9 {
 								),
 								array(
 									'name'  => $property,
-									'value' => 'var(' . $css_var . ')',
+									'value' => 'var(--wp--user--preset--' . $property . ')',
 								),
 							)
 						);
