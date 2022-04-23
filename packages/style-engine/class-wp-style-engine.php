@@ -406,23 +406,26 @@ class WP_Style_Engine {
 			return $rules;
 		}
 
-		foreach ( $style_value as $key => $value ) {
+		foreach ( $style_value as $css_property => $value ) {
 			if ( ! $value ) {
 				continue;
 			}
-			$side_style_definition_path = array( $style_definition['path'][0], $key );
+			// The first item in the style definition path array tells us the style property, e.g., "border".
+			// We use this to get a corresponding CSS style definition such as "color" or "width" from the same group.
+			$side_style_definition_path = array( $style_definition['path'][0], $css_property );
 			$side_style_definition      = _wp_array_get( self::BLOCK_STYLE_DEFINITIONS_METADATA, $side_style_definition_path, null );
 
-			if ( $side_style_definition ) {
+			if ( $side_style_definition && isset( $side_style_definition['properties']['sides'] ) ) {
+				// The second item in the style definition path array refers to the side property, e.g., "top".
 				$side_property = strtr( $side_style_definition['properties']['sides'], array( '$side' => $style_definition['path'][1] ) );
 
 				// Set a CSS var if there is a valid preset value.
-				$slug = isset( $style_definition['css_vars'][ $key ] ) ? static::get_slug_from_preset_value( $value, $key ) : null;
+				$slug = isset( $style_definition['css_vars'][ $css_property ] ) ? static::get_slug_from_preset_value( $value, $css_property ) : null;
 				if ( $slug ) {
 					$css_var = strtr(
-						$style_definition['css_vars'][ $key ],
+						$style_definition['css_vars'][ $css_property ],
 						array(
-							'$property' => $key,
+							'$property' => $css_property,
 							'$slug'     => $slug,
 						)
 					);

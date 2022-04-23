@@ -219,6 +219,35 @@ class WP_Style_Engine_Test extends WP_UnitTestCase {
 					'css' => 'border-top-color: #fe1; border-top-width: 1.5rem; border-top-style: dashed; border-right-color: #fe2; border-right-width: 1.4rem; border-right-style: solid; border-bottom-color: #fe3; border-bottom-width: 1.3rem; border-left-color: var(--wp--preset--color--swampy-yellow); border-left-width: 0.5rem; border-left-style: dotted;',
 				),
 			),
+
+			'inline_invalid_box_model_style_with_sides'    => array(
+				'block_styles'    => array(
+					'border' => array(
+						'top'    => array(
+							'top'    => '#fe1',
+							'right'  => '1.5rem',
+							'cheese' => 'dashed',
+						),
+						'right'  => array(
+							'right' => '#fe2',
+							'top'   => '1.4rem',
+							'bacon' => 'solid',
+						),
+						'bottom' => array(
+							'color'  => 'var:preset|color|terrible-lizard',
+							'bottom' => '1.3rem',
+						),
+						'left'   => array(
+							'left'  => null,
+							'width' => null,
+							'top'   => 'dotted',
+						),
+					),
+				),
+				'expected_output' => array(
+					'css' => 'border-bottom-color: var(--wp--preset--color--terrible-lizard);',
+				),
+			),
 		);
 	}
 }
