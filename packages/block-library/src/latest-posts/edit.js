@@ -466,7 +466,11 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 								.join( ' ' ) }
 							{ /* translators: excerpt truncation character, default …  */ }
 							{ __( ' … ' ) }
-							<a href={ post.link } rel="noopener noreferrer">
+							<a
+								href={ post.link }
+								onClick={ ( event ) => event.preventDefault() }
+								rel="noopener noreferrer"
+							>
 								{ __( 'Read more' ) }
 							</a>
 						</>
@@ -482,6 +486,9 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 										<a
 											className="wp-block-latest-posts__post-title"
 											href={ post.link }
+											onClick={ ( event ) =>
+												event.preventDefault()
+											}
 											rel="noreferrer noopener"
 										>
 											{ featuredImage }
@@ -493,6 +500,7 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 							) }
 							<a
 								href={ post.link }
+								onClick={ ( event ) => event.preventDefault() }
 								rel="noreferrer noopener"
 								dangerouslySetInnerHTML={
 									!! titleTrimmed
