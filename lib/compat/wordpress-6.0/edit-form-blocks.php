@@ -11,7 +11,12 @@
  * @param array $preload_paths Preload paths to be filtered.
  * @return array
  */
-function gutenberg_optimize_preload_paths( $preload_paths ) {
+function gutenberg_optimize_preload_paths( $preload_paths, $block_editor_context ) {
+	// optimize only the post editor page, not site or widgets.
+	if ( $block_editor_context->name !== 'core/edit-post' ) {
+		return $preload_paths;
+	}
+
 	// remove preload of the `/` route.
 	$root_index = array_search( '/', $preload_paths, true );
 	if ( false !== $root_index ) {
@@ -48,7 +53,7 @@ function gutenberg_optimize_preload_paths( $preload_paths ) {
 
 	return $preload_paths;
 }
-add_filter( 'block_editor_rest_api_preload_paths', 'gutenberg_optimize_preload_paths' );
+add_filter( 'block_editor_rest_api_preload_paths', 'gutenberg_optimize_preload_paths', 10, 2 );
 
 /**
  * Disables loading remote block patterns from REST while initializing the editor.
