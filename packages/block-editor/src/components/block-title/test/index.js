@@ -189,7 +189,9 @@ describe( 'BlockTitle', () => {
 	it( 'should return section title if the block supports it', () => {
 		useSelect.mockImplementation( () => ( {
 			name: 'name-with-section',
-			attributes: { section: { name: 'My custom section' } },
+			attributes: {
+				metadata: { name: 'My custom section', isSection: true },
+			},
 		} ) );
 
 		const wrapper = shallow(

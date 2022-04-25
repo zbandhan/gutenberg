@@ -91,7 +91,7 @@ export const BlockSwitcherDropdownMenu = ( { clientIds, blocks } ) => {
 						firstBlockName,
 						'__experimentalSection',
 						false
-					) && !! getBlockAttributes( clientId ).section,
+					) && !! getBlockAttributes( clientId ).metadata?.isSection,
 			};
 		},
 		[ clientIds, blocks, blockInformation?.icon ]

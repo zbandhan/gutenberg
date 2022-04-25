@@ -18,11 +18,11 @@ import { hasBlockSupport } from '@wordpress/blocks';
  */
 export function addAttribute( settings ) {
 	if ( hasBlockSupport( settings, '__experimentalSection', false ) ) {
-		// Allow blocks to specify their own section attribute definition with default value if needed.
-		if ( ! has( settings.attributes, [ 'section' ] ) ) {
+		// Allow blocks to specify their own metadata attribute definition with default value if needed.
+		if ( ! has( settings.attributes, [ 'metadata' ] ) ) {
 			settings.attributes = {
 				...settings.attributes,
-				section: {
+				metadata: {
 					type: 'object',
 				},
 			};
